@@ -2,6 +2,14 @@
 ## Temporarily set execution policy
 Set-ExecutionPolicy Bypass
 
+## Get OS version
+$os = (Get-CimInstance Win32_OperatingSystem).Caption
+If ($os -like '*server*') {
+    $siteKey = $serverKey
+} Else {
+    $siteKey = $workstationKey
+}
+
 ## Check if SentinelOne is installed
 $checkSent = Get-Service -Name 'Sentinel Agent' -EA 0
 $Dir = "$env:windir\LTSvc\packages\Software\SentinelOne"
@@ -12,5 +20,5 @@ If (!$checkSent) {
     [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
     (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/dkbrookie/PowershellFunctions/master/Function.Install-EXE.ps1') | Invoke-Expression
     ## Install SentinelOne
-    Install-EXE -AppName SentinelOne -FileDownloadLink 'https://support.dkbinnovative.com/labtech/transfer/software/sentinelone/sentinelone.exe' -FileDir $Dir -FileEXEPath "$Dir\SentinelOne.exe" -Arguments "/quiet"
+    Install-EXE -AppName SentinelOne -FileDownloadLink $downloadURL -FileDir $Dir -FileEXEPath "$Dir\SentinelOne.exe" -Arguments "/SITE_TOKEN=$siteKey /QUIET /NORESTART"
 }
