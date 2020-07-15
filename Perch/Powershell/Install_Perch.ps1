@@ -2,7 +2,7 @@
 Set-ExecutionPolicy Bypass
 
 ## Check if Perch is installed
-$checkSent = Get-Service -Name 'Sentinel Agent' -EA 0
+$checkSent = Get-Service -Name 'Perch-AuditBeat' -EA 0
 $Dir = "$env:windir\LTSvc\packages\Software\Perch"
 
 If (!$checkSent) {
