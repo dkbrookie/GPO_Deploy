@@ -1,8 +1,16 @@
 <#
-NOTE: $apiKey and $sensorIP need to have values before this script is called. The intent is for this
-script to be called form a GPO, and before the GPO is called the call mechanism would fill out these
-variables. This keeps the API key out of Github which I prefer (even thoguh Perch has stated this is
-not sensitive information-- put in a ticket to verify).
+Important Note
+    $apiKey and $sensorIP need to have values before this script is called. The intent is for this
+    script to be called form a GPO, and before the GPO is called the call mechanism would fill out these
+    variables. This keeps the API key out of Github which I prefer (even thoguh Perch has stated this is
+    not sensitive information-- put in a ticket to verify).
+
+Script Workflow
+    -Checks for server or workstation OS, then sets the reporting method to IP for server, or API for workstation
+    -Sets the download TLS method to TLS1.2 so Powershell download will succeed
+    -Checks if Perch is installed, installs if missing
+    -Verify all Perch dependent services are running, start if not running
+    -Verify all Perch services are running, start if not running
 #>
 
 
