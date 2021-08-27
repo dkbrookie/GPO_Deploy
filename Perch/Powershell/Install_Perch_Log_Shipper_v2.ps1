@@ -10,7 +10,7 @@ not sensitive information-- put in a ticket to verify).
 Set-ExecutionPolicy Bypass
 
 
-Function Show-Output ($output = $output) {
+Function Show-Output ($output) {
     $output = $output -join "`n"
     Write-Output $output
 }
@@ -31,7 +31,7 @@ If ($os -like '*Server*') {
         $arguments = "/qn OUTPUT=IP VALUE=$reportDestination"
     } Else {
         $output += '$sensorIp has no value! This must contain an IP address for this script to successfully install the log shipper to a Server OS, exting script.'
-        Show-Output
+        Show-Output $output
         Break
     }
 } Else {
@@ -42,7 +42,7 @@ If ($os -like '*Server*') {
         $arguments = "/qn OUTPUT=TOKEN VALUE=$reportDestination"
     } Else {
         $output += '$apiKey has no value! This must contain an API Key for this script to successfully install the log shipper to a Workstation OS, exting script.'
-        Show-Output
+        Show-Output $output
         Break
     }
 }
@@ -76,4 +76,4 @@ Start-Sleep -Seconds 10
 $output += Service-Check -Role 'Perch Log Shipper' -CheckDependencies Y -StartDependencies Y -RunAsMonitor N
 
 
-Show-Output
+Show-Output $output
