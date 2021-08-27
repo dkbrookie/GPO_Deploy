@@ -11,6 +11,9 @@ Script Workflow
     -Checks if Perch is installed, installs if missing
     -Verify all Perch dependent services are running, start if not running
     -Verify all Perch services are running, start if not running
+
+Clients known to be using this in GPOs
+    -GTMSSP
 #>
 
 
